@@ -37,7 +37,7 @@ jobs:
          echo "Building Windows"
          env GOOS=windows GOARCH=amd64 go build -o dist/Threadfin_windows_amd64.exe
 
-      - name: Login to GitHub Container Registry 🔒
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
