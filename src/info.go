@@ -72,6 +72,7 @@ func ShowSystemInfo() {
 	fmt.Println(fmt.Sprintf("UUID:                %s", Settings.UUID))
 	fmt.Println(fmt.Sprintf("Tuner (Plex / Emby): %d", Settings.Tuner))
 	fmt.Println(fmt.Sprintf("EPG Source:          %s", Settings.EpgSource))
+	fmt.Println(fmt.Sprintf("URL Base Path:       %s", Settings.URLBasePath))
 
 	println("---")
 

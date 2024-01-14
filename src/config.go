@@ -199,7 +199,7 @@ func Init() (err error) {
 	// Domainnamen setzten
 	setGlobalDomain(fmt.Sprintf("%s:%s", System.IPAddress, Settings.Port))
 
-	System.URLBase = fmt.Sprintf("%s://%s:%s", System.ServerProtocol.WEB, System.IPAddress, Settings.Port)
+	System.URLBase = fmt.Sprintf("%s://%s:%s%s", System.ServerProtocol.WEB, System.IPAddress, Settings.Port, Settings.URLBasePath)
 
 	// HTML Dateien erstellen, mit dev == true werden die lokalen HTML Dateien verwendet
 	if System.Dev == true {

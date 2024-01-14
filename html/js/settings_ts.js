@@ -315,6 +315,17 @@ class SettingsCategory {
                 setting.appendChild(tdLeft);
                 setting.appendChild(tdRight);
                 break;
+            case "urlBasePath":
+                var tdLeft = document.createElement("TD");
+                tdLeft.innerHTML = "{{.settings.urlBasePath.title}}" + ":";
+                var tdRight = document.createElement("TD");
+                var input = content.createInput("text", "urlBasePath", data.toString());
+                input.setAttribute("placeholder", "{{.settings.urlBasePath.placeholder}}");
+                input.setAttribute("onchange", "javascript: this.className = 'changed'");
+                tdRight.appendChild(input);
+                setting.appendChild(tdLeft);
+                setting.appendChild(tdRight);
+                break;
             case "api":
                 var tdLeft = document.createElement("TD");
                 tdLeft.innerHTML = "{{.settings.api.title}}" + ":";
@@ -458,6 +469,9 @@ class SettingsCategory {
                 break;
             case "httpThreadfinDomain":
                 text = "{{.settings.httpThreadfinDomain.description}}";
+                break;
+            case "urlBasePath":
+                text = "{{.settings.urlBasePath.description}}";
                 break;
             case "enableNonAscii":
                 text = "{{.settings.enableNonAscii.description}}";

@@ -29,7 +29,7 @@ class Server {
         break
     }
 
-    var url = this.protocol + window.location.hostname + ":" + window.location.port + "/data/" + "?Token=" + getCookie("Token")
+    var url = this.protocol + window.location.hostname + ":" + window.location.port + getBasePath() + "/data/" + "?Token=" + getCookie("Token")
 
     data["cmd"] = this.cmd
     var ws = new WebSocket(url)
@@ -144,4 +144,11 @@ function getCookie(name) {
   var value = "; " + document.cookie;
   var parts = value.split("; " + name + "=");
   if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
+function getBasePath() {
+  var basePath = window.location.pathname.split("/")
+  var rootBasePath = ""
+  if( basePath[1] != "web") { rootBasePath = "/" + basePath[1] }
+  return rootBasePath
 }

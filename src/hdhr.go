@@ -42,7 +42,7 @@ func getCapability() (xmlContent []byte, err error) {
 	var buffer bytes.Buffer
 
 	capability.Xmlns = "urn:schemas-upnp-org:device-1-0"
-	capability.URLBase = System.ServerProtocol.WEB + "://" + System.Domain
+	capability.URLBase = System.ServerProtocol.WEB + "://" + System.Domain + Settings.URLBasePath
 
 	capability.SpecVersion.Major = 1
 	capability.SpecVersion.Minor = 0

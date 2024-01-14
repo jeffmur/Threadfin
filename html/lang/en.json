@@ -464,6 +464,11 @@
       "description": "User Agent for HTTP requests. For every HTTP connection, this value is used for the user agent. Should only be changed if Threadfin is blocked.",
       "placeholder": "Threadfin"
     },
+    "urlBasePath": {
+      "title": "URL Base Path",
+      "description": "For reverse proxy support, default is empty. Should only be changed if Threadfin is blocked. Requires Restart",
+      "placeholder": ""
+    },
     "backupPath": {
       "title": "Location for automatic backups",
       "placeholder": "/mnt/data/backup/threadfin/",

@@ -21,18 +21,18 @@ func StartWebserver() (err error) {
 
 	var port = Settings.Port
 
-	http.HandleFunc("/", Index)
-	http.HandleFunc("/stream/", Stream)
-	http.HandleFunc("/xmltv/", Threadfin)
-	http.HandleFunc("/m3u/", Threadfin)
-	http.HandleFunc("/data/", WS)
-	http.HandleFunc("/web/", Web)
-	http.HandleFunc("/download/", Download)
-	http.HandleFunc("/api/", API)
-	http.HandleFunc("/images/", Images)
-	http.HandleFunc("/data_images/", DataImages)
-	http.HandleFunc("/ppv/enable", enablePPV)
-	http.HandleFunc("/ppv/disable", disablePPV)
+	http.HandleFunc(Settings.URLBasePath + "/", Index)
+	http.HandleFunc(Settings.URLBasePath + "/stream/", Stream)
+	http.HandleFunc(Settings.URLBasePath + "/xmltv/", Threadfin)
+	http.HandleFunc(Settings.URLBasePath + "/m3u/", Threadfin)
+	http.HandleFunc(Settings.URLBasePath + "/data/", WS)
+	http.HandleFunc(Settings.URLBasePath + "/web/", Web)
+	http.HandleFunc(Settings.URLBasePath + "/download/", Download)
+	http.HandleFunc(Settings.URLBasePath + "/api/", API)
+	http.HandleFunc(Settings.URLBasePath + "/images/", Images)
+	http.HandleFunc(Settings.URLBasePath + "/data_images/", DataImages)
+	http.HandleFunc(Settings.URLBasePath + "/ppv/enable", enablePPV)
+	http.HandleFunc(Settings.URLBasePath + "/ppv/disable", disablePPV)
 
 	//http.HandleFunc("/auto/", Auto)
 
@@ -42,13 +42,13 @@ func StartWebserver() (err error) {
 	switch ips {
 
 	case 0:
-		showHighlight(fmt.Sprintf("Web Interface:%s://%s:%s/web/", System.ServerProtocol.WEB, System.IPAddress, Settings.Port))
+		showHighlight(fmt.Sprintf("Web Interface:%s://%s:%s%s/web/", System.ServerProtocol.WEB, System.IPAddress, Settings.Port, Settings.URLBasePath))
 
 	case 1:
-		showHighlight(fmt.Sprintf("Web Interface:%s://%s:%s/web/ | Threadfin is also available via the other %d IP.", System.ServerProtocol.WEB, System.IPAddress, Settings.Port, ips))
+		showHighlight(fmt.Sprintf("Web Interface:%s://%s:%s%s/web/ | Threadfin is also available via the other %d IP.", System.ServerProtocol.WEB, System.IPAddress, Settings.Port, Settings.URLBasePath, ips))
 
 	default:
-		showHighlight(fmt.Sprintf("Web Interface:%s://%s:%s/web/ | Threadfin is also available via the other %d IP's.", System.ServerProtocol.WEB, System.IPAddress, Settings.Port, len(System.IPAddressesV4)+len(System.IPAddressesV6)-1))
+		showHighlight(fmt.Sprintf("Web Interface:%s://%s:%s%s/web/ | Threadfin is also available via the other %d IP's.", System.ServerProtocol.WEB, System.IPAddress, Settings.Port, Settings.URLBasePath, len(System.IPAddressesV4)+len(System.IPAddressesV6)-1))
 
 	}
 
@@ -621,8 +621,9 @@ func Web(w http.ResponseWriter, r *http.Request) {
 
 	var lang = make(map[string]interface{})
 	var err error
+	var webPath = Settings.URLBasePath + "/web"
 
-	var requestFile = strings.Replace(r.URL.Path, "/web", "html", -1)
+	var requestFile = strings.Replace(r.URL.Path, webPath, "html", -1)
 	var content, contentType, file string
 
 	var language LanguageUI
@@ -674,6 +675,7 @@ func Web(w http.ResponseWriter, r *http.Request) {
 		case true:
 
 			var username, password, confirm string
+
 			switch r.Method {
 			case "POST":
 				var allUsers, _ = authentication.GetAllUserData()
@@ -695,7 +697,7 @@ func Web(w http.ResponseWriter, r *http.Request) {
 					}
 					// Redirect, damit die Daten aus dem Browser gelöscht werden.
 					w = authentication.SetCookieToken(w, token)
-					http.Redirect(w, r, "/web", 301)
+					http.Redirect(w, r, webPath, 301)
 					return
 
 				}
@@ -711,11 +713,11 @@ func Web(w http.ResponseWriter, r *http.Request) {
 					}
 
 					w = authentication.SetCookieToken(w, token)
-					http.Redirect(w, r, "/web", 301) // Redirect, damit die Daten aus dem Browser gelöscht werden.
+					http.Redirect(w, r, webPath, 301) // Redirect, damit die Daten aus dem Browser gelöscht werden.
 
 				} else {
 					w = authentication.SetCookieToken(w, "-")
-					http.Redirect(w, r, "/web", 301) // Redirect, damit die Daten aus dem Browser gelöscht werden.
+					http.Redirect(w, r, webPath, 301) // Redirect, damit die Daten aus dem Browser gelöscht werden.
 				}
 
 				return

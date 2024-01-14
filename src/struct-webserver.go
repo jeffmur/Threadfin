@@ -18,6 +18,7 @@ type RequestStruct struct {
 	// Neue Werte für die Einstellungen (settings.json)
 	Settings struct {
 		API                      *bool     `json:"api,omitempty"`
+		URLBasePath              *string   `json:"urlBasePath,omitempty"`
 		AuthenticationAPI        *bool     `json:"authentication.api,omitempty"`
 		AuthenticationM3U        *bool     `json:"authentication.m3u,omitempty"`
 		AuthenticationPMS        *bool     `json:"authentication.pms,omitempty"`

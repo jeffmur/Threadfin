@@ -219,9 +219,9 @@ func buildM3U(groups []string) (m3u string, err error) {
 	// M3U Inhalt erstellen
 	sort.Float64s(channelNumbers)
 
-	var xmltvURL = fmt.Sprintf("%s://%s/xmltv/threadfin.xml", System.ServerProtocol.XML, System.Domain)
+	var xmltvURL = fmt.Sprintf("%s://%s%s/xmltv/threadfin.xml", System.ServerProtocol.XML, System.Domain, Settings.URLBasePath)
 	if Settings.ForceHttps && Settings.HttpsThreadfinDomain != "" {
-		xmltvURL = fmt.Sprintf("https://%s/xmltv/threadfin.xml", Settings.HttpsThreadfinDomain)
+		xmltvURL = fmt.Sprintf("https://%s%s/xmltv/threadfin.xml", Settings.HttpsThreadfinDomain, Settings.URLBasePath)
 	}
 	m3u = fmt.Sprintf(`#EXTM3U url-tvg="%s" x-tvg-url="%s"`+"\n", xmltvURL, xmltvURL)
 
